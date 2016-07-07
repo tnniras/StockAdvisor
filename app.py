@@ -7,3 +7,4 @@ print yahoo.get_price()
 print yahoo.get_trade_datetime()
 
 # COMMENT
+print 'Hello, world!'
