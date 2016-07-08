@@ -8,13 +8,13 @@ stocks = [ "AMZN", "IBM", "RELIANCE"]
 
 
 
-#def get_stock_price(stocks):
- #   for stock in stocks:
- #       symbol = Share(stock)
- #       print "%s : %s " % (stock, symbol.get_price())
+def get_stock_price(stocks):
+    for stock in stocks:
+        symbol = Share(stock)
+        print "%s : %s " % (stock, symbol.get_price())
 
-#get_stock_price(stocks)
+get_stock_price(stocks)
 
-tt = Share("BHEL.NS")
+tt = Share("YHOO")
 #print yahoo_finance.__dict__
-print(tt.get_price())
+#print(tt.get_price())
