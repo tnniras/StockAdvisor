@@ -1,20 +1,13 @@
 #!/usr/bin/python
 
-import yahoo_finance
-from yahoo_finance import Share
+#import yahoo_finance
+#from yahoo_finance import Share
+from MySQL import MySQL
 
-# List of stocks
-stocks = [ "AMZN", "IBM", "RELIANCE"]
+sql = MySQL()
+result = sql.select("users", "email")
+for email in result:
+    print email[0]
+sql.close()
 
 
-
-def get_stock_price(stocks):
-    for stock in stocks:
-        symbol = Share(stock)
-        print "%s : %s " % (stock, symbol.get_price())
-
-get_stock_price(stocks)
-
-tt = Share("YHOO")
-#print yahoo_finance.__dict__
-#print(tt.get_price())
