@@ -10,38 +10,42 @@ class MySQL:
     def __init__(self):
         self.sort_by = ""
         self.order = ""
+        self.wher = ""
         # initiate database connection.
         self.connection = pymysql.connect(host='localhost',
                              user='root',
-                             password='',
+                             password='zicom@123',
                              db='sherlock',
                              charset='utf8mb4')
         
         self.cursor = self.connection.cursor(pymysql.cursors.DictCursor)
+     # this fuction is for filter mysql records. (the "where" factor)
+    def where(self, *args):
+        args = list(args)
+        operator=["=", ">=", "<=", "!="]
+        for op in operator:
+            if op in args[0]:
+                self.wher = "where %s \"%s\"" % (args[0], args[1])
+            else:
+                self.wher = "where %s = \"%s\"" % (args[0], args[1])        
+
     # this function is for selecting any feild on any table.(feilds veriable is optinal)     
     def select(self, table, feilds="*", *args, **kwargs):
+     
+        sql = "SELECT %s FROM `%s`" % (feilds, table)
         
-        sql = "SELECT %s FROM `%s` " % (feilds, table)
-        if self.sort_by:
-            sql = sql +"order by "+ str(self.sort_by) +" "+ str(self.order)
+        try:
+            if self.wher and self.sort_by:
+                sql = sql+" "+str(self.wher)+" order by "+str(self.sort_by)+" "+str(self.order)
+            elif self.wher:
+                sql = sql+" "+str(self.wher)
+        except:
+            sql = sql+"order by"+str(self.sort_by)+" "+str(self.order)
         print sql
         self.cursor.execute(sql)
         result = self.cursor.fetchall()
         return result    
-    def where(self, *args):
-        args = list(args)
-        #args = dict(args)
-        operator=["=", ">=", "<=", "!="]
-        
-        args = str.split()
-        #str = re.sub(r'[^\w]', '', str)
-        try:
-            where = "%s %s" % (str[0], str[1])
-        except:
-            where = "%s =" % str[0]
-            #print(str[1])
 
-        print(where)
     
     # This function is for data sorting for Mysql; but optinal.
     # example : SELECT * FROM `users`  order by id asc
