@@ -19,32 +19,35 @@ class MySQL:
         
         self.cursor = self.connection.cursor(pymysql.cursors.DictCursor)
     # this function is for selecting any feild on any table.(feilds veriable is optinal)     
-    def select(self, table, *feilds):
-        flds = "" #differnt name for feilds veriable.
-        if not feilds:
-            flds = '*'
-        else:
-            for f in feilds:
-                if not flds:
-                    flds = f
-                else:
-                    flds += ",`%s`" % f
-        sql = "SELECT %s FROM `%s` " % (flds, table)
+    def select(self, table, feilds="*", *args, **kwargs):
+        
+        sql = "SELECT %s FROM `%s` " % (feilds, table)
         if self.sort_by:
             sql = sql +"order by "+ str(self.sort_by) +" "+ str(self.order)
         print sql
         self.cursor.execute(sql)
         result = self.cursor.fetchall()
         return result    
+    def where(self, *args):
+        args = list(args)
+        #args = dict(args)
+        operator=["=", ">=", "<=", "!="]
+        
+        args = str.split()
+        #str = re.sub(r'[^\w]', '', str)
+        try:
+            where = "%s %s" % (str[0], str[1])
+        except:
+            where = "%s =" % str[0]
+            #print(str[1])
+
+        print(where)
     
-    # This function is for data sorting for Mysql but optinal
+    # This function is for data sorting for Mysql; but optinal.
     # example : SELECT * FROM `users`  order by id asc
-    def order_by(self, *args):
-        if len(args) >= 2:
-            self.sort_by = args[0]
-            self.order = args[1]
-        elif len(args) == 1:
-            self.sort_by = args[0]
+    def order_by(self, sort_by="", order="", *args, **kwargs):
+        self.sort_by = sort_by
+        self.order = order
     
     # this function is for closing Mysql connection
     def close(self):
