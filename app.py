@@ -1,4 +1,9 @@
 #!/usr/bin/python
+#===================================================================================
+# Author : Tushar Niras, Amol Morbale
+# Email : tnniras@gmail.com
+# Information : this class is defined to make CRUD operations easy.
+#===================================================================================
 
 #import yahoo_finance
 #from yahoo_finance import Share
