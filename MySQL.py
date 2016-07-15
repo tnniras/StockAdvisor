@@ -1,6 +1,10 @@
 #!/usr/bin/python
 import pymysql
-
+#===================================================================================
+# Author : Tushar Niras, Amol Morbale
+# Email : tnniras@gmail.com
+# Information : this class is defined to make CRUD operations easy.
+#===================================================================================
 # select (table, parameter)
 # insert (table, data)
 # update (table, id, data)
@@ -39,6 +43,8 @@ class MySQL:
                 sql = sql+" "+str(self.wher)+" order by "+str(self.sort_by)+" "+str(self.order)
             elif self.wher:
                 sql = sql+" "+str(self.wher)
+            else:
+                sql = sql+" order by "+str(self.sort_by)+" "+str(self.order)
         except:
             sql = sql+"order by"+str(self.sort_by)+" "+str(self.order)
         print sql
