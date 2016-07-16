@@ -15,11 +15,13 @@ sql = MySQL()
 # sql.order_by function should be called before the sql.select() function.
 # this will select all the feilds from `users` table.
 # you can specify whichever feilds you want to return. like : sql.select("users")
-sql.where("email", "tushar@gmail.com")
-sql.order_by("email", "desc")
-result = sql.select("users", "id, email")
-for email in result:
-    print email["id"]
+sql.where("email", "tnniras@gmail.com")
+#sql.order_by("email", "desc")
+#result = sql.select("users", "id, email")
+#for email in result:
+#    print email["id"]
+
+sql.delete("users")
 
 sql.close()
 

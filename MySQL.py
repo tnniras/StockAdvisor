@@ -18,7 +18,7 @@ class MySQL:
         # initiate database connection.
         self.connection = pymysql.connect(host='localhost',
                              user='root',
-                             password='zicom@123',
+                             password='',
                              db='sherlock',
                              charset='utf8mb4')
         
@@ -49,6 +49,7 @@ class MySQL:
             sql = sql+"order by"+str(self.sort_by)+" "+str(self.order)
         print sql
         self.cursor.execute(sql)
+        self.connection.commit()
         result = self.cursor.fetchall()
         return result    
 
@@ -59,6 +60,16 @@ class MySQL:
         self.sort_by = sort_by
         self.order = order
     
+    # this fiction is usful for deleting records from the table. Warning! please make sure "WHERE" claouse is defined before 
+    # this function. otherwise you'll end up with deleting all the records from the table;
+    def delete(self, table, *args, **kwargs):
+        if self.wher == "" and table:
+            sql = "DELETE FROM %s" % table
+        else:
+            sql = "DELETE FROM %s %s" % (table, self.wher)
+        print sql
+        self.cursor.execute(sql)
+        self.connection.commit()
     # this function is for closing Mysql connection
     def close(self):
         self.connection.close()
