@@ -43,8 +43,10 @@ class MySQL:
                 sql = sql+" "+str(self.wher)+" order by "+str(self.sort_by)+" "+str(self.order)
             elif self.wher:
                 sql = sql+" "+str(self.wher)
-            else:
+            elif self.sort_by:
                 sql = sql+" order by "+str(self.sort_by)+" "+str(self.order)
+            else:
+                sql = sql
         except:
             sql = sql+"order by"+str(self.sort_by)+" "+str(self.order)
         print sql
